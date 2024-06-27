@@ -1,4 +1,5 @@
 import { Container } from 'inversify';
+
 import { RestApplication } from '../cli/rest/rest.application.js';
 import { Logger } from '../shared/libs/logger/logger.interface.js';
 import { Component } from '../shared/types/component.enum.js';
@@ -9,7 +10,10 @@ import { RestConfig } from '../shared/libs/config/rest.config.js';
 import { DatabaseClient } from '../shared/libs/database-client/database-client.interface.js';
 import { MongoDatabaseClient } from '../shared/libs/database-client/mongo.database-client.js';
 import { ExceptionFilter } from '../shared/libs/rest/exception-filter/exception-filter.interface.js';
-import { AppExceptionFilter } from '../shared/libs/rest/exception-filter/app-exception-filter.js';
+import { AppExceptionFilter } from '../shared/libs/rest/exception-filter/app.exception-filter.js';
+import { HttpErrorExceptionFilter } from '../shared/libs/rest/exception-filter/http-error.exception-filter.js';
+import { ValidationExceptionFilter } from '../shared/libs/rest/exception-filter/validation.exception-filter.js';
+import { UrlTransformer } from '../shared/libs/rest/transform/url-transformer.js';
 
 export function createRestApplicationContainer() {
   const restApplicationContainer = new Container();
@@ -33,6 +37,18 @@ export function createRestApplicationContainer() {
   restApplicationContainer
     .bind<ExceptionFilter>(Component.ExceptionFilter)
     .to(AppExceptionFilter)
+    .inSingletonScope();
+  restApplicationContainer
+    .bind<ExceptionFilter>(Component.HttpExceptionFilter)
+    .to(HttpErrorExceptionFilter)
+    .inSingletonScope();
+  restApplicationContainer
+    .bind<ValidationExceptionFilter>(Component.ValidationExceptionFilter)
+    .to(ValidationExceptionFilter)
+    .inSingletonScope();
+  restApplicationContainer
+    .bind<UrlTransformer>(Component.UrlTransformer)
+    .to(UrlTransformer)
     .inSingletonScope();
 
   return restApplicationContainer;

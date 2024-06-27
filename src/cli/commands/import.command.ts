@@ -54,7 +54,6 @@ export class ImportCommand implements Command {
       description: offer.description,
       date: offer.date,
       city: offer.city,
-      previewImage: offer.previewImage,
       photo: offer.photo,
       isPremium: offer.isPremium,
       type: offer.type,
@@ -62,7 +61,6 @@ export class ImportCommand implements Command {
       guests: offer.guests,
       price: offer.price,
       goods: offer.goods,
-      user: offer.user,
       location: offer.location,
     });
   }

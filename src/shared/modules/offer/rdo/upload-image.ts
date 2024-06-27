@@ -1,0 +1,9 @@
+import { Expose } from 'class-transformer';
+
+export class UploadImageRdo {
+  @Expose()
+  public image: string;
+
+  @Expose()
+  public photo: string[];
+}

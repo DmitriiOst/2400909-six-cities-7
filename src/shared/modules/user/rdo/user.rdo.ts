@@ -2,6 +2,9 @@ import { Expose } from 'class-transformer';
 
 export class UserRdo {
   @Expose()
+  public UserId: string;
+
+  @Expose()
   public name: string;
 
   @Expose()
@@ -14,5 +17,5 @@ export class UserRdo {
   public password: string;
 
   @Expose()
-  public isPro: boolean;
+  public type: string;
 }

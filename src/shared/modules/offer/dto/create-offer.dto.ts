@@ -1,13 +1,14 @@
 import { MinLength, MaxLength,
-  IsDateString, IsMongoId,
+  IsDateString,
   IsInt, Max, Min,
-  IsBoolean, IsArray,
-  ArrayMinSize, ArrayMaxSize,
-  IsString} from 'class-validator';
+  IsBoolean,
+  IsString,
+  IsArray,
+  ArrayMinSize,
+  ArrayMaxSize} from 'class-validator';
 
 import { CityType } from '../../../types/city.type.js';
 import { Goods, HousingType, Location } from '../../../types/offer.type.js';
-// import { UserData } from '../../../types/user-data.type.js';
 import { CreateOfferValidationMessage } from './create-offer.message.js';
 
 export class CreateOfferDto {
@@ -24,9 +25,6 @@ export class CreateOfferDto {
 
   @IsString({ message: CreateOfferValidationMessage.type.invalid })
   public city: CityType;
-
-  @MaxLength(256, { message: CreateOfferValidationMessage.previewImage.maxLength })
-  public previewImage: string;
 
   @IsArray({ message: CreateOfferValidationMessage.images.invalidFormat })
   @ArrayMinSize(6, { message: CreateOfferValidationMessage.images.arrayMinSize })
@@ -57,12 +55,8 @@ export class CreateOfferDto {
   @IsString({each: true})
   public goods: Goods[];
 
-  // @IsMongoId({ message: CreateOfferValidationMessage.userId.invalidId })
-  // public user: UserData;
-
   @IsString()
   public location: Location;
 
-  @IsMongoId({ message: CreateOfferValidationMessage.userId.invalidId })
   public userId: string;
 }
